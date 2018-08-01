@@ -19,8 +19,8 @@
 {% block header %}
 {% endblock %}
 
-
 {% block body %}
+    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
     <!-- WRAPPER -->
     <div id="wrapper">
         <!-- NAVBAR -->
@@ -144,6 +144,9 @@
         </footer>
     </div>
     <!-- END WRAPPER -->
+    {% else %}
+        lffasl
+    {% endif %}
 {% endblock %}
 
 

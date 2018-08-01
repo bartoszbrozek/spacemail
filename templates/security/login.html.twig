@@ -1,20 +1,53 @@
+{% extends 'base.html.twig' %}
 
-{% if error %}
-    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-{% endif %}
+{% block body %}
+    <!-- WRAPPER -->
+    <div id="wrapper">
+        <div class="vertical-align-wrap">
+            <div class="vertical-align-middle">
+                <div class="auth-box ">
 
-<form action="{{ path('login') }}" method="post">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="_username" value="{{ last_username }}" />
+                    <div class="left">
+                        <div class="content">
+                            {% if error %}
+                                <div class="alert alert-danger" role="alert">
+                                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                                </div>
+                            {% endif %}
+                            <div class="header">
+                                <div class="logo text-center"><img src="" alt="SpaceMail"></div>
+                                <p class="lead">Login to your account</p>
+                            </div>
+                            <form class="form-auth-small" action="{{ path('login') }}" method="post">
+                                <div class="form-group">
+                                    <label for="signin-email" class="control-label sr-only">Email</label>
+                                    <input type="text" class="form-control" id="username" name="_username" value="{{ last_username }}" placeholder="Username">
+                                </div>
+                                <div class="form-group">
+                                    <label for="signin-password" class="control-label sr-only">Password</label>
+                                    <input type="password" class="form-control" id="password" name="_password"  placeholder="Password">
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">LOGIN</button>
+                            </form>
+                        </div>
+                    </div>
 
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="_password" />
+                    <div class="right">
+                        <div class="overlay"></div>
+                        <div class="content text">
+                            <h1 class="heading">SpaceMail for true Kulfon cats</h1>
+                            <p>by Kulfon the Cat passionate</p>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    {#
-        If you want to control the URL the user
-        is redirected to on success (more details below)
-        <input type="hidden" name="_target_path" value="/account" />
-    #}
+    <img src="{{ asset("img/kulfon.jpg") }}">
+    <!-- END WRAPPER -->
 
-    <button type="submit">login</button>
-</form>
+
+{% endblock %}
+
