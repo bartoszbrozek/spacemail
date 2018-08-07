@@ -29,3 +29,10 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    App\Service\AWS\SES\Mail:
+        arguments:
+            - '@App\Service\AWS\CredentialsProvider'
+
+    App\Service\AWS\EC2\Region:
+        arguments:
+            - '@App\Service\AWS\CredentialsProvider'

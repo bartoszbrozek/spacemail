@@ -1,13 +1,17 @@
 <?php
 
-namespace App\Service\AWS;
+namespace App\Service\AWS\SES;
 
+use App\Service\AWS\CredentialsProvider;
 use Aws\Ses\Exception\SesException;
-use Aws\Ses\SesClient;
-use Aws\Credentials\CredentialProvider;
 
-class SESMail
+class Mail extends AbstractSES
 {
+    public function __construct(CredentialsProvider $credentialsProvider)
+    {
+        parent::__construct($credentialsProvider);
+    }
+
     public function getHappyMessage()
     {
         $messages = [
@@ -23,20 +27,8 @@ class SESMail
 
     public function sendEmail(string $sender, string $recipent, string $subject, string $body)
     {
-
-        $profile = 'default';
-        $path = '/home/acheron/.aws/credentials';
-        $provider = CredentialProvider::ini($profile, $path);
-        $provider = CredentialProvider::memoize($provider);
-
-        $client = new SesClient([
-            'version' => 'latest',
-            'region' => 'eu-west-1',
-            'credentials' => $provider
-        ]);
-
         try {
-            $result = $client->sendEmail([
+            $result = $this->client->sendEmail([
                 'Destination' => [
                     'ToAddresses' => [
                         $recipent,

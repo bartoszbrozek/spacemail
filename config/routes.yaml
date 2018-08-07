@@ -8,3 +8,10 @@ login:
 
 logout:
     path: /logout
+
+settings:
+    path: /settings
+    controller: App\Controller\SettingsController::index
+
+statistics:
+    path: /statistics
