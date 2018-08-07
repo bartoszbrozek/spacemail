@@ -2,23 +2,21 @@
 
 namespace App\Service\AWS\SES;
 
-use App\Service\AWS\CredentialsProvider;
+use App\Service\AWS\ICredentialsProvider;
 use Aws\Ses\SesClient;
 
 abstract class AbstractSES
 {
     private $credentialsProvider;
-    protected $client;
 
-    public function __construct(CredentialsProvider $credentialsProvider)
+    public function __construct(ICredentialsProvider $credentialsProvider)
     {
         $this->credentialsProvider = $credentialsProvider;
-        $this->setClient();
     }
 
-    private function setClient()
+    protected function getClient(): SesClient
     {
-        $this->client = new SesClient([
+        return new SesClient([
             'version' => 'latest',
             'region' => 'eu-west-1',
             'credentials' => $this->credentialsProvider->getCredentialsProviderFromFile()

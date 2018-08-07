@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Settings;
+use App\Service\AWS\CredentialsProvider;
+use App\Service\AWS\EC2\Region;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -24,7 +26,7 @@ class SettingsType extends AbstractType
             ])
             ->add('name', TextType::class, [
                 'required' => false,
-                'label' =>'Public Name'
+                'label' => 'Public Name'
             ])
             ->add('email', EmailType::class, [
                 'required' => false
@@ -32,11 +34,15 @@ class SettingsType extends AbstractType
             ->add('password', PasswordType::class, [
                 'required' => false
             ])
-            ->add('timezone', TextType::class, [
-                'required' => false
+            ->add('timezone', ChoiceType::class, [
+                'required' => false,
+                'choices' => array_flip(timezone_identifiers_list())
             ])
-            ->add('language', TextType::class, [
-                'required' => false
+            ->add('language', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'English' => 'en_US'
+                ]
             ])
             ->add('accessKeyID', TextType::class, [
                 'required' => false,
@@ -49,9 +55,8 @@ class SettingsType extends AbstractType
             ->add('sesRegion', ChoiceType::class, [
                 'required' => false,
                 'label' => 'SES Region',
-                'choices' => [
-                    'test' => 123
-                ]
+                'choices' => (new Region(new CredentialsProvider()))->getAll()
+
             ])
             ->add('sendingRate', IntegerType::class, [
                 'required' => false,
@@ -61,7 +66,11 @@ class SettingsType extends AbstractType
                 'required' => false,
                 'label' => 'System API Key'
             ])
-            ->add('save', SubmitType::class);
+            ->add('save', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btn btn-success'
+                ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

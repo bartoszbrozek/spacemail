@@ -2,16 +2,11 @@
 
 namespace App\Service\AWS\SES;
 
-use App\Service\AWS\CredentialsProvider;
+use App\Service\AWS\ICredentialsProvider;
 use Aws\Ses\Exception\SesException;
 
 class Mail extends AbstractSES
 {
-    public function __construct(CredentialsProvider $credentialsProvider)
-    {
-        parent::__construct($credentialsProvider);
-    }
-
     public function getHappyMessage()
     {
         $messages = [
@@ -28,7 +23,7 @@ class Mail extends AbstractSES
     public function sendEmail(string $sender, string $recipent, string $subject, string $body)
     {
         try {
-            $result = $this->client->sendEmail([
+            $result = $this->getClient()->sendEmail([
                 'Destination' => [
                     'ToAddresses' => [
                         $recipent,

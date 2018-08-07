@@ -2,19 +2,18 @@
 
 namespace App\Service\AWS\EC2;
 
-use App\Service\AWS\CredentialsProvider;
-use App\Service\AWS\SES\AbstractEC2;
-
 class Region extends AbstractEC2
 {
-    public function __construct(CredentialsProvider $credentialsProvider)
+    public function getAll(): array
     {
-        parent::__construct($credentialsProvider);
-    }
+        $result = $this->getClient()->describeRegions()->toArray();
 
+        $regions = [];
 
-    private function setClient()
-    {
+        foreach ($result['Regions'] as $region) {
+            $regions[$region['RegionName']] = $region['RegionName'];
+        }
 
+        return $regions;
     }
 }
