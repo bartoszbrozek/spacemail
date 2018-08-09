@@ -2,18 +2,25 @@
 
 namespace App\Service\AWS\EC2;
 
+use Aws\Exception\CredentialsException;
+
 class Region extends AbstractEC2
 {
     public function getAll(): array
     {
-        $result = $this->getClient()->describeRegions()->toArray();
+        try {
+            $result = $this->getClient()->describeRegions()->toArray();
 
-        $regions = [];
+            $regions = [];
 
-        foreach ($result['Regions'] as $region) {
-            $regions[$region['RegionName']] = $region['RegionName'];
+            foreach ($result['Regions'] as $region) {
+                $regions[$region['RegionName']] = $region['RegionName'];
+            }
+
+            return $regions;
+        } catch (CredentialsException $ex) {
+            return [];
         }
 
-        return $regions;
     }
 }

@@ -3,8 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Settings;
-use App\Service\AWS\CredentialsProvider;
-use App\Service\AWS\EC2\Region;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -48,15 +46,19 @@ class SettingsType extends AbstractType
                 'required' => false,
                 'label' => 'Access Key ID'
             ])
-            ->add('secretAccessKey', PasswordType::class, [
-                'required' => false,
-                'label' => 'Secret Access Key'
-            ])
             ->add('sesRegion', ChoiceType::class, [
                 'required' => false,
                 'label' => 'SES Region',
-                'choices' => (new Region(new CredentialsProvider()))->getAll()
+                'choices' => $options['data']['Regions']
 
+            ])
+            ->add('apiCredentialsProfile', TextType::class, [
+                'required' => false,
+                'label' => 'API Credentials Profile'
+            ])
+            ->add('apiCredentialsPath', TextType::class, [
+                'required' => false,
+                'label' => 'API Credentials File Path'
             ])
             ->add('sendingRate', IntegerType::class, [
                 'required' => false,

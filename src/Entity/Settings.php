@@ -71,6 +71,16 @@ class Settings
      */
     private $systemApiKey;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $apiCredentialsProfile;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $apiCredentialsPath;
+
     public function getId()
     {
         return $this->id;
@@ -204,6 +214,30 @@ class Settings
     public function setSystemApiKey(?string $systemApiKey): self
     {
         $this->systemApiKey = $systemApiKey;
+
+        return $this;
+    }
+
+    public function getApiCredentialsProfile(): ?string
+    {
+        return $this->apiCredentialsProfile;
+    }
+
+    public function setApiCredentialsProfile(?string $apiCredentialsProfile): self
+    {
+        $this->apiCredentialsProfile = $apiCredentialsProfile;
+
+        return $this;
+    }
+
+    public function getApiCredentialsPath(): ?string
+    {
+        return $this->apiCredentialsPath;
+    }
+
+    public function setApiCredentialsPath(?string $apiCredentialsPath): self
+    {
+        $this->apiCredentialsPath = $apiCredentialsPath;
 
         return $this;
     }

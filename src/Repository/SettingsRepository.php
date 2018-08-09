@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Settings;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Exception\NonUniqueFieldNameException;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -64,6 +65,21 @@ class SettingsRepository extends ServiceEntityRepository
         }
 
         return true;
+    }
+
+
+    public function get()
+    {
+        try {
+            return $this->createQueryBuilder('s')
+                ->andWhere('s.id = :id')
+                ->setParameter('id', 1)
+                ->getQuery()
+                ->getOneOrNullResult();
+        } catch (NonUniqueFieldNameException $ex) {
+            return null;
+        }
+
     }
 
 }
