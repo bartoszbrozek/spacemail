@@ -5,10 +5,11 @@ namespace App\Controller;
 use App\Entity\Settings;
 use App\Service\AWS\SES\Mail;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
-class MainController extends Controller
+class CampaignsController extends Controller
 {
-    public function index(Mail $sesmail)
+    public function index(Request $request)
     {
         $settings = $this->getDoctrine()->getRepository(Settings::class)->find(1);
 
@@ -20,7 +21,7 @@ class MainController extends Controller
 
         //$msg = $sesmail->sendEmail('bartekbrozek1@gmail.com', 'bartekbrozek1@gmail.com', 'TestMail', 'test msg 1');
 
-        return $this->render('index/index.html.twig', [
+        return $this->render('campaigns/index.html.twig', [
             'msg' => 'test'
         ]);
     }

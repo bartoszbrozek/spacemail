@@ -62,6 +62,12 @@ class SettingsController extends Controller
             $this->addFlash('success', 'Settings has been saved');
         }
 
+        if ($settings->getApiCredentialsPath() !== null) {
+            if (!is_readable($settings->getApiCredentialsPath())) {
+                $this->addFlash('error', 'File '.$settings->getApiCredentialsPath().' does not exists or is not readable');
+            }
+        }
+
         return $this->render('settings/aws.html.twig', [
             'form' => $form->createView(),
             'settings' => $settings

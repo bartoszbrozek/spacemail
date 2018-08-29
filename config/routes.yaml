@@ -23,3 +23,24 @@ settings-email:
 
 statistics:
     path: /statistics
+    controller: App\Controller\StatisticsController::index
+
+brands:
+    path: /brands
+    controller: App\Controller\BrandsController::index
+
+brands-add:
+    path: /brands/add
+    controller: App\Controller\BrandsController::add
+
+brands-edit:
+    path: /brands/{id}/edit
+    controller: App\Controller\BrandsController::edit
+
+brands-remove:
+    path: /brands/{id}/remove
+    controller: App\Controller\BrandsController::remove
+
+campaigns:
+    path: /campaigns
+    controller: App\Controller\CampaignsController::index

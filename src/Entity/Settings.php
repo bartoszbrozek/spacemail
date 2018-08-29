@@ -81,7 +81,6 @@ class Settings
      */
     private $apiCredentialsPath;
 
-
     private $regions;
 
     public function setRegions(array $regions) {
