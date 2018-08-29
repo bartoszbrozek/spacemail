@@ -81,6 +81,17 @@ class Settings
      */
     private $apiCredentialsPath;
 
+
+    private $regions;
+
+    public function setRegions(array $regions) {
+        $this->regions = $regions;
+    }
+
+    public function getRegions() {
+        return $this->regions;
+    }
+
     public function getId()
     {
         return $this->id;

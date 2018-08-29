@@ -3,7 +3,6 @@
 namespace App\Service\AWS;
 
 use Aws\Credentials\CredentialProvider;
-use Aws\Exception\CredentialsException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class CredentialsProvider implements ICredentialsProvider

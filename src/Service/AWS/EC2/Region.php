@@ -19,7 +19,7 @@ class Region extends AbstractEC2
 
             return $regions;
         } catch (CredentialsException $ex) {
-            return [];
+            return ['default' => 'default'];
         }
 
     }

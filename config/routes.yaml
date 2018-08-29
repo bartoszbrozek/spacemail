@@ -9,9 +9,17 @@ login:
 logout:
     path: /logout
 
-settings:
-    path: /settings
+settings-basic:
+    path: /settings-basic
     controller: App\Controller\SettingsController::index
+
+settings-aws:
+    path: /settings-aws
+    controller: App\Controller\SettingsController::aws
+
+settings-email:
+    path: /settings-email
+    controller: App\Controller\SettingsController::email
 
 statistics:
     path: /statistics

@@ -65,7 +65,8 @@
                                             alt="Avatar">
                                     <span></span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="{{ path('logout') }}"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
+                                    <li><a href="{{ path('logout') }}"><i class="lnr lnr-exit"></i> <span>Logout</span></a>
+                                    </li>
                                 </ul>
                             </li>
                         </ul>
@@ -73,36 +74,29 @@
                 </div>
             </nav>
             <!-- END NAVBAR -->
-            <!-- LEFT SIDEBAR -->
-            <div id="sidebar-nav" class="sidebar">
-                <div class="sidebar-scroll">
-                    <nav>
-                        <ul class="nav">
-                            <li>
-                                <a href="{{ path("index") }}"
-                                        {% if app.request.get('_route') == 'index' %} class="active" {% endif %}>
-                                    <i class="lnr lnr-home"></i> <span>Dashboard</span></a>
-                            </li>
-                            <li>
-                                <a href="{{ path("statistics") }}"
-                                        {% if app.request.get('_route') == 'statistics' %} class="active" {% endif %}>
-                                    <i class="lnr lnr-home"></i> <span>Statistics</span></a>
-                            </li>
-                            <li>
-                                <a href="{{ path("settings") }}"
-                                        {% if app.request.get('_route') == 'settings' %} class="active" {% endif %}>
-                                    <i class="lnr lnr-home"></i> <span>Settings</span></a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-            <!-- END LEFT SIDEBAR -->
+            {% include 'components/menu.html.twig' %}
             <!-- MAIN -->
             <div class="main">
                 <!-- MAIN CONTENT -->
                 <div class="main-content">
                     <div class="container-fluid">
+                        {% for message in app.flashes('notice') %}
+                            <div class="alert alert-primary">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+
+                        {% for message in app.flashes('error') %}
+                            <div class="alert alert-warning">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+
+                        {% for message in app.flashes('success') %}
+                            <div class="alert alert-success">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
                         {% block container %}
 
                         {% endblock container %}
@@ -114,9 +108,6 @@
             <div class="clearfix"></div>
             <footer>
                 <div class="container-fluid">
-                    <p class="copyright">&copy; 2017 <a href="https://www.themeineed.com" target="_blank">Theme I
-                            Need</a>.
-                        All Rights Reserved.</p>
                 </div>
             </footer>
         </div>

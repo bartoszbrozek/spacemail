@@ -3,14 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Settings;
-use App\Form\SettingsType;
+use App\Form\SettingsAwsType;
+use App\Form\SettingsBasicType;
+use App\Form\SettingsEmailType;
 use App\Service\AWS\EC2\Region;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 class SettingsController extends Controller
 {
-    public function index(Request $request, Region $region)
+    public function index(Request $request)
     {
         $settings = $this->getDoctrine()->getRepository(Settings::class)->find(1);
 
@@ -18,11 +20,36 @@ class SettingsController extends Controller
             $settings = new Settings();
         }
 
-        $form = $this->createForm(SettingsType::class, $settings, [
-            'data_class' => null,
-            'data' => [
-                'Regions' => $region->getAll()
-            ]
+        $form = $this->createForm(SettingsBasicType::class, $settings);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($settings);
+            $em->flush();
+
+            $this->addFlash('success', 'Settings has been saved');
+        }
+
+        return $this->render('settings/index.html.twig', [
+            'form' => $form->createView(),
+            'settings' => $settings
+        ]);
+    }
+
+    public function aws(Request $request, Region $region)
+    {
+        $settings = $this->getDoctrine()->getRepository(Settings::class)->find(1);
+
+        if ($settings === null) {
+            $settings = new Settings();
+        }
+
+        $settings->setRegions($region->getAll());
+
+        $form = $this->createForm(SettingsAwsType::class, $settings, [
+            'data' => $settings
         ]);
 
         $form->handleRequest($request);
@@ -31,9 +58,37 @@ class SettingsController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($settings);
             $em->flush();
+
+            $this->addFlash('success', 'Settings has been saved');
         }
 
-        return $this->render('settings/index.html.twig', [
+        return $this->render('settings/aws.html.twig', [
+            'form' => $form->createView(),
+            'settings' => $settings
+        ]);
+    }
+
+    public function email(Request $request)
+    {
+        $settings = $this->getDoctrine()->getRepository(Settings::class)->find(1);
+
+        if ($settings === null) {
+            $settings = new Settings();
+        }
+
+        $form = $this->createForm(SettingsEmailType::class, $settings);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($settings);
+            $em->flush();
+
+            $this->addFlash('success', 'Settings has been saved');
+        }
+
+        return $this->render('settings/email.html.twig', [
             'form' => $form->createView(),
             'settings' => $settings
         ]);

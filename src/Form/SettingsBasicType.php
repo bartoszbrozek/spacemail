@@ -14,7 +14,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 
-class SettingsType extends AbstractType
+class SettingsBasicType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -41,32 +41,6 @@ class SettingsType extends AbstractType
                 'choices' => [
                     'English' => 'en_US'
                 ]
-            ])
-            ->add('accessKeyID', TextType::class, [
-                'required' => false,
-                'label' => 'Access Key ID'
-            ])
-            ->add('sesRegion', ChoiceType::class, [
-                'required' => false,
-                'label' => 'SES Region',
-                'choices' => $options['data']['Regions']
-
-            ])
-            ->add('apiCredentialsProfile', TextType::class, [
-                'required' => false,
-                'label' => 'API Credentials Profile'
-            ])
-            ->add('apiCredentialsPath', TextType::class, [
-                'required' => false,
-                'label' => 'API Credentials File Path'
-            ])
-            ->add('sendingRate', IntegerType::class, [
-                'required' => false,
-                'label' => 'Sending Rate'
-            ])
-            ->add('systemApiKey', TextType::class, [
-                'required' => false,
-                'label' => 'System API Key'
             ])
             ->add('save', SubmitType::class, [
                 'attr' => [
