@@ -44,3 +44,20 @@ brands-remove:
 campaigns:
     path: /campaigns
     controller: App\Controller\CampaignsController::index
+
+
+templates:
+    path: /templates
+    controller: App\Controller\TemplateController::index
+
+template-add:
+    path: /templates/add
+    controller: App\Controller\TemplateController::add
+
+template-edit:
+    path: /templates/{id}/edit
+    controller: App\Controller\TemplateController::edit
+
+template-remove:
+    path: /templates/{id}/remove
+    controller: App\Controller\TemplateController::remove

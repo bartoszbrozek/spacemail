@@ -11,8 +11,8 @@
         </div>
         <div class="panel-body">
 
+            <a href="{{ path('brands-add') }}" class="btn btn-primary">Add a New Brand</a>
             {% if brands|length > 0 %}
-                <a href="{{ path('brands-add') }}" class="btn btn-primary">Add a New Brand</a>
                 <table class="table table-striped">
                     <thead>
                     <tr>
@@ -32,7 +32,8 @@
                             <td>{{ brand.monthlyLimit }}</td>
                             <td>
                                 <a href="{{ path('brands-edit', {'id': brand.id}) }}" class="btn btn-warning">Edit</a>
-                                <a href="{{ path('brands-remove', {'id': brand.id}) }}" class="btn btn-danger">Remove</a>
+                                <a href="{{ path('brands-remove', {'id': brand.id}) }}"
+                                   class="btn btn-danger">Remove</a>
                             </td>
                         </tr>
                     {% endfor %}

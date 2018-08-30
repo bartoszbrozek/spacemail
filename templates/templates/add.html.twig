@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block header %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block container %}
+
+    <div class="panel panel-headline">
+        <div class="panel-heading">
+            <h3 class="panel-title">New Template</h3>
+            <p class="panel-subtitle">Add a New Template</p>
+        </div>
+        <div class="panel-body">
+
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
+
+        </div>
+    </div>
+
+{% endblock %}
