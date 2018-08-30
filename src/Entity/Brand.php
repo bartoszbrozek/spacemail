@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -60,6 +62,16 @@ class Brand
      * @ORM\Column(type="integer")
      */
     private $monthlyLimit;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Template", mappedBy="brand")
+     */
+    private $templates;
+
+    public function __construct()
+    {
+        $this->templates = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -170,6 +182,42 @@ class Brand
     public function setMonthlyLimit(int $monthlyLimit): self
     {
         $this->monthlyLimit = $monthlyLimit;
+
+        return $this;
+    }
+
+    public function getBrand()
+    {
+        return $this->getName();
+    }
+
+    /**
+     * @return Collection|Template[]
+     */
+    public function getTemplates(): Collection
+    {
+        return $this->templates;
+    }
+
+    public function addTemplate(Template $template): self
+    {
+        if (!$this->templates->contains($template)) {
+            $this->templates[] = $template;
+            $template->setBrand($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTemplate(Template $template): self
+    {
+        if ($this->templates->contains($template)) {
+            $this->templates->removeElement($template);
+            // set the owning side to null (unless already changed)
+            if ($template->getBrand() === $this) {
+                $template->setBrand(null);
+            }
+        }
 
         return $this;
     }

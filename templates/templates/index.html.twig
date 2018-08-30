@@ -18,6 +18,7 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Name</th>
+                        <th scope="col">Brand</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -25,6 +26,7 @@
                         <tr>
                             <th scope="row">{{ template.id }}</th>
                             <td>{{ template.name }}</td>
+                            <td>{{ template.brand.name }}</td>
                             <td>
                                 <a href="{{ path('template-edit', {'id': template.id}) }}" class="btn btn-warning">Edit</a>
                                 <a href="{{ path('template-remove', {'id': template.id}) }}" class="btn btn-danger">Remove</a>

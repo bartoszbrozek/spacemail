@@ -26,6 +26,11 @@ class Template
      */
     private $htmlCode;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Brand", inversedBy="templates")
+     */
+    private $brand;
+
     public function getId()
     {
         return $this->id;
@@ -51,6 +56,18 @@ class Template
     public function setHtmlCode(string $htmlCode): self
     {
         $this->htmlCode = $htmlCode;
+
+        return $this;
+    }
+
+    public function getBrand(): ?Brand
+    {
+        return $this->brand;
+    }
+
+    public function setBrand(?Brand $brand): self
+    {
+        $this->brand = $brand;
 
         return $this;
     }

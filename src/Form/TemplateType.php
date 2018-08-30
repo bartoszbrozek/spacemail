@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Brand;
 use App\Entity\Template;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -23,6 +25,10 @@ class TemplateType extends AbstractType
             ->add('htmlCode', TextareaType::class, [
                 'required' => false,
                 'label' => 'HTML Code'
+            ])
+            ->add('brand', EntityType::class, [
+                'class' => Brand::class,
+                'choice_label' => 'Brand'
             ])
             ->add('save', SubmitType::class, [
                 'attr' => [
