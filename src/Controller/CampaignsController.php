@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Campaign;
 use App\Entity\CampaignStatus;
 use App\Form\CampaignType;
-use App\Repository\CampaignRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -33,7 +32,11 @@ class CampaignsController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $campaignStatus = $this->getDoctrine()->getRepository(CampaignStatus::class)->findOneByName('draft');
+            $campaignStatus = $this
+                ->getDoctrine()
+                ->getRepository(CampaignStatus::class)
+                ->findOneByName('draft');
+
             $campaign->setStatus($campaignStatus);
 
             $em = $this->getDoctrine()->getManager();

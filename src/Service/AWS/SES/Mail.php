@@ -52,4 +52,25 @@ class Mail extends AbstractSES
         }
 
     }
+
+    public function listIdentities(string $type = 'EmailAddress')
+    {
+        $identities = $this->getClient()->listIdentities([
+            'IdentityType' => $type === 'EmailAddress' ? 'EmailAddress' : 'Domain'
+        ])->toArray();
+
+        return $identities['Identities'];
+    }
+
+    public function addIdentity(string $email)
+    {
+        $result = $this->getClient()->verifyEmailIdentity([
+            'EmailAddress' => $email
+        ]);
+
+        dump($result);
+
+        return $result;
+
+    }
 }

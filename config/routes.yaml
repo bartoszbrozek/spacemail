@@ -1,78 +1,84 @@
+# Common routes
 index:
-    path: /
-    controller: App\Controller\MainController::index
+  path: /
+  controller: App\Controller\MainController::index
 
 login:
-    path: /login
-    controller: App\Controller\SecurityController::login
+  path: /login
+  controller: App\Controller\SecurityController::login
 
 logout:
-    path: /logout
+  path: /logout
 
+# Settings
 settings-basic:
-    path: /settings-basic
-    controller: App\Controller\SettingsController::index
+  path: /settings/basic
+  controller: App\Controller\SettingsController::index
 
 settings-aws:
-    path: /settings-aws
-    controller: App\Controller\SettingsController::aws
+  path: /settings/aws
+  controller: App\Controller\SettingsController::aws
 
 settings-email:
-    path: /settings-email
-    controller: App\Controller\SettingsController::email
+  path: /settings/email
+  controller: App\Controller\SettingsController::email
 
+settings-email-identities:
+  path: /settings/email/identities
+  controller: App\Controller\SettingsController::emailIdentities
+
+# Statistics
 statistics:
-    path: /statistics
-    controller: App\Controller\StatisticsController::index
+  path: /statistics
+  controller: App\Controller\StatisticsController::index
 
+# Brands
 brands:
-    path: /brands
-    controller: App\Controller\BrandsController::index
+  path: /brands
+  controller: App\Controller\BrandsController::index
 
 brands-add:
-    path: /brands/add
-    controller: App\Controller\BrandsController::add
+  path: /brands/add
+  controller: App\Controller\BrandsController::add
 
 brands-edit:
-    path: /brands/{id}/edit
-    controller: App\Controller\BrandsController::edit
+  path: /brands/{id}/edit
+  controller: App\Controller\BrandsController::edit
 
 brands-remove:
-    path: /brands/{id}/remove
-    controller: App\Controller\BrandsController::remove
+  path: /brands/{id}/remove
+  controller: App\Controller\BrandsController::remove
 
+# Campaigns
 campaigns:
-    path: /campaigns
-    controller: App\Controller\CampaignsController::index
+  path: /campaigns
+  controller: App\Controller\CampaignsController::index
 
 campaign-add:
-    path: /campaigns/add
-    controller: App\Controller\CampaignsController::add
+  path: /campaigns/add
+  controller: App\Controller\CampaignsController::add
 
 campaign-edit:
-    path: /campaigns/{id}/edit
-    controller: App\Controller\CampaignsController::edit
+  path: /campaigns/{id}/edit
+  controller: App\Controller\CampaignsController::edit
 
 campaign-remove:
-    path: /campaigns/{id}/remove
-    controller: App\Controller\CampaignsController::remove
+  path: /campaigns/{id}/remove
+  controller: App\Controller\CampaignsController::remove
 
-
-
-
-
+# Templates
 templates:
-    path: /templates
-    controller: App\Controller\TemplateController::index
+  path: /templates
+  controller: App\Controller\TemplateController::index
 
 template-add:
-    path: /templates/add
-    controller: App\Controller\TemplateController::add
+  path: /templates/add
+  controller: App\Controller\TemplateController::add
 
 template-edit:
-    path: /templates/{id}/edit
-    controller: App\Controller\TemplateController::edit
+  path: /templates/{id}/edit
+  controller: App\Controller\TemplateController::edit
 
 template-remove:
-    path: /templates/{id}/remove
-    controller: App\Controller\TemplateController::remove
+  path: /templates/{id}/remove
+  controller: App\Controller\TemplateController::remove

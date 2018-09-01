@@ -11,7 +11,8 @@ class SecurityController extends Controller
     public function login(AuthenticationUtils $authenticationUtils, AuthorizationCheckerInterface $authChecker)
     {
         if ($authChecker->isGranted('ROLE_ADMIN') !== false) {
-           return $this->redirect('/');
+            $this->addFlash('notice', 'Welcome to SpaceMail');
+            return $this->redirect('/');
         }
 
         // get the login error if there is one

@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block header %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block container %}
+
+    <div class="panel panel-headline">
+        <div class="panel-heading">
+            <h3 class="panel-title">New Email Identity</h3>
+            <p class="panel-subtitle">Add New Email Identity</p>
+        </div>
+        <div class="panel-body">
+
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
+
+        </div>
+    </div>
+
+    <div class="panel panel-headline">
+        <div class="panel-heading">
+            <h3 class="panel-title">Email Identities</h3>
+            <p class="panel-subtitle">Email Identities List</p>
+        </div>
+        <div class="panel-body">
+
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Email</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for identity in identities %}
+                    <tr>
+                        <th scope="row">{{ identity }}</th>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+{% endblock %}
