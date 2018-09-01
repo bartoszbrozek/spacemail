@@ -120,7 +120,6 @@ class SettingsController extends Controller
                 }
 
                 $emailIdentity = $formData['emailIdentity'];
-
                 $mail->addIdentity($emailIdentity);
 
                 $this->addFlash('success', 'Email Identity has been added');

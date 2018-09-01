@@ -87,9 +87,11 @@ class Campaign
     private $uniqueClicks;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\CampaignStatus", inversedBy="campaign", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\CampaignStatus", inversedBy="campaign", cascade={"persist"})
      */
     private $status;
+
+    private $emailIdentities;
 
     public function getId()
     {
@@ -274,5 +276,18 @@ class Campaign
         $this->status = $status;
 
         return $this;
+    }
+
+    /**
+     * Email identities
+     */
+    public function setEmailIdentities(array $emailIdentities)
+    {
+        $this->emailIdentities = $emailIdentities;
+    }
+
+    public function getEmailIdentities(): ?array
+    {
+        return $this->emailIdentities;
     }
 }

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Campaign;
 use App\Entity\CampaignStatus;
 use App\Form\CampaignType;
+use App\Service\AWS\SES\Mail;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -23,11 +24,16 @@ class CampaignsController extends Controller
         ]);
     }
 
-    public function add(Request $request)
+    public function add(Request $request, Mail $mail)
     {
         $campaign = new Campaign();
 
-        $form = $this->createForm(CampaignType::class, $campaign);
+        $identities = $mail->listIdentities();
+        $campaign->setEmailIdentities($identities);
+
+        $form = $this->createForm(CampaignType::class, $campaign, [
+            'data' => $campaign
+        ]);
 
         $form->handleRequest($request);
 
@@ -53,9 +59,14 @@ class CampaignsController extends Controller
         ]);
     }
 
-    public function edit(Request $request, Campaign $campaign)
+    public function edit(Request $request, Campaign $campaign, Mail $mail)
     {
-        $form = $this->createForm(CampaignType::class, $campaign);
+        $identities = $mail->listIdentities();
+        $campaign->setEmailIdentities($identities);
+
+        $form = $this->createForm(CampaignType::class, $campaign, [
+            'data' => $campaign
+        ]);
 
         $form->handleRequest($request);
 

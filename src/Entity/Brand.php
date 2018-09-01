@@ -73,6 +73,8 @@ class Brand
      */
     private $campaign;
 
+    private $emailIdentities;
+
     public function __construct()
     {
         $this->templates = new ArrayCollection();
@@ -257,6 +259,19 @@ class Brand
         }
 
         return $this;
+    }
+
+    /**
+     * Email identities
+     */
+    public function setEmailIdentities(array $emailIdentities)
+    {
+        $this->emailIdentities = $emailIdentities;
+    }
+
+    public function getEmailIdentities(): ?array
+    {
+        return $this->emailIdentities;
     }
 
 }

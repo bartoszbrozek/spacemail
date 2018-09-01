@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Brand;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -26,9 +27,10 @@ class BrandType extends AbstractType
                 'required' => true,
                 'label' => 'From Name'
             ])
-            ->add('fromEmail', EmailType::class, [
+            ->add('fromEmail', ChoiceType::class, [
                 'required' => true,
-                'label' => 'From Email'
+                'label' => 'From Email',
+                'choices' => $options['data']->getEmailIdentities()
             ])
             ->add('replyToEmail', EmailType::class, [
                 'required' => true,

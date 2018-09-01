@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Brand;
 use App\Form\BrandType;
+use App\Service\AWS\SES\Mail;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -22,11 +23,16 @@ class BrandsController extends Controller
         ]);
     }
 
-    public function add(Request $request)
+    public function add(Request $request, Mail $mail)
     {
         $brand = new Brand();
 
-        $form = $this->createForm(BrandType::class, $brand);
+        $identities = $mail->listIdentities();
+        $brand->setEmailIdentities($identities);
+
+        $form = $this->createForm(BrandType::class, $brand, [
+            'data' => $brand
+        ]);
 
         $form->handleRequest($request);
 
@@ -45,9 +51,14 @@ class BrandsController extends Controller
         ]);
     }
 
-    public function edit(Request $request, Brand $brand)
+    public function edit(Request $request, Brand $brand, Mail $mail)
     {
-        $form = $this->createForm(BrandType::class, $brand);
+        $identities = $mail->listIdentities();
+        $brand->setEmailIdentities($identities);
+
+        $form = $this->createForm(BrandType::class, $brand, [
+            'data' => $brand
+        ]);
 
         $form->handleRequest($request);
 
@@ -68,12 +79,18 @@ class BrandsController extends Controller
 
     public function remove(Brand $brand)
     {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($brand);
-            $em->flush();
+        $em = $this->getDoctrine()->getManager();
 
-            $this->addFlash('success', 'Brand has been removed');
+        $campaigns = $brand->getCampaign()->toArray();
+        foreach ($campaigns as $campaign) {
+            $brand->removeCampaign($campaign);
+        }
 
-            return $this->redirectToRoute('brands');
+        $em->remove($brand);
+        $em->flush();
+
+        $this->addFlash('success', 'Brand has been removed');
+
+        return $this->redirectToRoute('brands');
     }
 }

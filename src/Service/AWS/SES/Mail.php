@@ -7,19 +7,6 @@ use Aws\Ses\Exception\SesException;
 
 class Mail extends AbstractSES
 {
-    public function getHappyMessage()
-    {
-        $messages = [
-            'You did it! You updated the system! Amazing!',
-            'That was one of the coolest updates I\'ve seen all day!',
-            'Great work! Keep going!',
-        ];
-
-        $index = array_rand($messages);
-
-        return $messages[$index];
-    }
-
     public function sendEmail(string $sender, string $recipent, string $subject, string $body)
     {
         try {
@@ -55,11 +42,19 @@ class Mail extends AbstractSES
 
     public function listIdentities(string $type = 'EmailAddress')
     {
-        $identities = $this->getClient()->listIdentities([
+        $result = $this->getClient()->listIdentities([
             'IdentityType' => $type === 'EmailAddress' ? 'EmailAddress' : 'Domain'
         ])->toArray();
 
-        return $identities['Identities'];
+        $identities = [];
+
+        foreach ($result['Identities'] as $identity) {
+            $identities[$identity] = $identity;
+        }
+
+        unset($result);
+
+        return $identities;
     }
 
     public function addIdentity(string $email)
@@ -67,8 +62,6 @@ class Mail extends AbstractSES
         $result = $this->getClient()->verifyEmailIdentity([
             'EmailAddress' => $email
         ]);
-
-        dump($result);
 
         return $result;
 

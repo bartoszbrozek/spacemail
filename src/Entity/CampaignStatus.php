@@ -22,7 +22,7 @@ class CampaignStatus
     private $name;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Campaign", mappedBy="status", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Campaign", mappedBy="status", cascade={"persist"})
      */
     private $campaign;
 
