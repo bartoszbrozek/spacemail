@@ -19,32 +19,22 @@ class CampaignRepository extends ServiceEntityRepository
         parent::__construct($registry, Campaign::class);
     }
 
-//    /**
-//     * @return Campaign[] Returns an array of Campaign objects
-//     */
-    /*
-    public function findByExampleField($value)
+    public function findOneByID(int $id): ?Campaign
     {
         return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
+            ->andWhere('c.id = :id')
+            ->setParameter('id', $id)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getOneOrNullResult();
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Campaign
+    public function findOneByName(string $name): ?Campaign
     {
         return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('c.name = :name')
+            ->setParameter('name', $name)
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getOneOrNullResult();
     }
-    */
+
 }

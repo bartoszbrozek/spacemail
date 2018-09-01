@@ -45,6 +45,21 @@ campaigns:
     path: /campaigns
     controller: App\Controller\CampaignsController::index
 
+campaign-add:
+    path: /campaigns/add
+    controller: App\Controller\CampaignsController::add
+
+campaign-edit:
+    path: /campaigns/{id}/edit
+    controller: App\Controller\CampaignsController::edit
+
+campaign-remove:
+    path: /campaigns/{id}/remove
+    controller: App\Controller\CampaignsController::remove
+
+
+
+
 
 templates:
     path: /templates

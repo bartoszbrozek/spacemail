@@ -68,9 +68,15 @@ class Brand
      */
     private $templates;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Campaign", mappedBy="brand")
+     */
+    private $campaign;
+
     public function __construct()
     {
         $this->templates = new ArrayCollection();
+        $this->campaign = new ArrayCollection();
     }
 
     public function getId()
@@ -221,4 +227,36 @@ class Brand
 
         return $this;
     }
+
+    /**
+     * @return Collection|Campaign[]
+     */
+    public function getCampaign(): Collection
+    {
+        return $this->campaign;
+    }
+
+    public function addCampaign(Campaign $campaign): self
+    {
+        if (!$this->campaign->contains($campaign)) {
+            $this->campaign[] = $campaign;
+            $campaign->setBrand($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCampaign(Campaign $campaign): self
+    {
+        if ($this->campaign->contains($campaign)) {
+            $this->campaign->removeElement($campaign);
+            // set the owning side to null (unless already changed)
+            if ($campaign->getBrand() === $this) {
+                $campaign->setBrand(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

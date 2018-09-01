@@ -56,6 +56,41 @@ class Campaign
      */
     private $trackClicks;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Brand", inversedBy="campaign")
+     */
+    private $brand;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $name;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $recipents;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $sentDate;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $uniqueOpens;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $uniqueClicks;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\CampaignStatus", inversedBy="campaign", cascade={"persist", "remove"})
+     */
+    private $status;
+
     public function getId()
     {
         return $this->id;
@@ -153,6 +188,90 @@ class Campaign
     public function setTrackClicks(?bool $trackClicks): self
     {
         $this->trackClicks = $trackClicks;
+
+        return $this;
+    }
+
+    public function getBrand(): ?Brand
+    {
+        return $this->brand;
+    }
+
+    public function setBrand(?Brand $brand): self
+    {
+        $this->brand = $brand;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getRecipents(): ?int
+    {
+        return $this->recipents;
+    }
+
+    public function setRecipents(?int $recipents): self
+    {
+        $this->recipents = $recipents;
+
+        return $this;
+    }
+
+    public function getSentDate(): ?\DateTimeInterface
+    {
+        return $this->sentDate;
+    }
+
+    public function setSentDate(?\DateTimeInterface $sentDate): self
+    {
+        $this->sentDate = $sentDate;
+
+        return $this;
+    }
+
+    public function getUniqueOpens(): ?int
+    {
+        return $this->uniqueOpens;
+    }
+
+    public function setUniqueOpens(?int $uniqueOpens): self
+    {
+        $this->uniqueOpens = $uniqueOpens;
+
+        return $this;
+    }
+
+    public function getUniqueClicks(): ?int
+    {
+        return $this->uniqueClicks;
+    }
+
+    public function setUniqueClicks(?int $uniqueClicks): self
+    {
+        $this->uniqueClicks = $uniqueClicks;
+
+        return $this;
+    }
+
+    public function getStatus(): ?CampaignStatus
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?CampaignStatus $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }
