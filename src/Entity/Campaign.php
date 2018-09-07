@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -92,6 +94,16 @@ class Campaign
     private $status;
 
     private $emailIdentities;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\RecipentList", mappedBy="campaign")
+     */
+    private $recipentLists;
+
+    public function __construct()
+    {
+        $this->recipentLists = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -289,5 +301,33 @@ class Campaign
     public function getEmailIdentities(): ?array
     {
         return $this->emailIdentities;
+    }
+
+    /**
+     * @return Collection|RecipentList[]
+     */
+    public function getRecipentLists(): Collection
+    {
+        return $this->recipentLists;
+    }
+
+    public function addRecipentList(RecipentList $recipentList): self
+    {
+        if (!$this->recipentLists->contains($recipentList)) {
+            $this->recipentLists[] = $recipentList;
+            $recipentList->addCampaign($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecipentList(RecipentList $recipentList): self
+    {
+        if ($this->recipentLists->contains($recipentList)) {
+            $this->recipentLists->removeElement($recipentList);
+            $recipentList->removeCampaign($this);
+        }
+
+        return $this;
     }
 }
